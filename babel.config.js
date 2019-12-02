@@ -14,6 +14,7 @@ module.exports = api => {
 					}
 				}
 			]
-		]
+		],
+		plugins: ['babel-plugin-add-module-exports']
 	}
 }

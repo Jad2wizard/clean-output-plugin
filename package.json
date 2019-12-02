@@ -5,7 +5,7 @@
 	"main": "./dist/cleanPlugin.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"build": "webpack --mode ",
+		"build": "babel src -d dist -s true",
 		"eslint": "git diff --name-status --cached head > diff.log && node scripts/precommit.js"
 	},
 	"repository": {
@@ -19,18 +19,17 @@
 	"author": "jadwizard",
 	"license": "MIT",
 	"devDependencies": {
+		"@babel/cli": "^7.7.4",
 		"@babel/core": "^7.7.4",
 		"@babel/preset-env": "^7.7.4",
 		"babel-eslint": "^10.0.3",
-		"babel-loader": "^8.0.6",
+		"babel-plugin-add-module-exports": "^1.0.2",
 		"eslint": "^6.7.2",
 		"eslint-config-prettier": "^6.7.0",
 		"eslint-plugin-prettier": "^3.1.1",
 		"husky": "^3.1.0",
 		"prettier": "^1.19.1",
-		"pretty-quick": "^2.0.1",
-		"webpack": "^4.41.2",
-		"webpack-cli": "^3.3.10"
+		"pretty-quick": "^2.0.1"
 	},
 	"husky": {
 		"hooks": {
