@@ -1,0 +1,39 @@
+{
+	"name": "webpack-clean-plugin",
+	"version": "0.1.0",
+	"description": "delete the previous files of webpack output in the compiler emit hook",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "webpack --mode ",
+		"eslint": "git diff --name-status --cached head > diff.log && node scripts/precommit.js"
+	},
+	"keywords": [
+		"webpack",
+		"plugin"
+	],
+	"author": "jadwizard",
+	"license": "MIT",
+	"devDependencies": {
+		"@babel/core": "^7.7.4",
+		"@babel/preset-env": "^7.7.4",
+		"babel-eslint": "^10.0.3",
+		"babel-loader": "^8.0.6",
+		"eslint": "^6.7.2",
+		"eslint-config-prettier": "^6.7.0",
+		"eslint-plugin-prettier": "^3.1.1",
+		"husky": "^3.1.0",
+		"prettier": "^1.19.1",
+		"pretty-quick": "^2.0.1",
+		"webpack": "^4.41.2",
+		"webpack-cli": "^3.3.10"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "pretty-quick --staged && npm run eslint"
+		}
+	},
+	"dependencies": {
+		"shelljs": "^0.8.3"
+	}
+}
