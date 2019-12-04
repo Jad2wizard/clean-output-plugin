@@ -1,0 +1,7 @@
+scripts/
+.eslint*
+.gitignore
+*.log
+babel.config.js
+.prettierrc
+package-lock.json
