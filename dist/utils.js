@@ -13,7 +13,26 @@ function _interopRequireDefault(obj) {
 	return obj && obj.__esModule ? obj : {default: obj}
 }
 
-const rmdirSync = dir => {
+let rootPath = null
+let ignoreFiles = null
+
+const notNeedRemove = dir => {
+	if (!rootPath || !dir.startsWith(rootPath)) return true
+	const relativePath = dir.replace(rootPath, '')
+	const inIgnoreFiles = ignoreFiles.some(
+		f =>
+			f === relativePath ||
+			`/${f}` === relativePath ||
+			`/${f}` === `${relativePath}/`
+	)
+	return inIgnoreFiles
+}
+
+const rmdirSync = (dir, _ignoreFiles) => {
+	if (!rootPath) rootPath = dir
+	if (!ignoreFiles && _ignoreFiles) ignoreFiles = _ignoreFiles
+	if (notNeedRemove(dir)) return
+
 	const fileinfo = _fs.default.statSync(dir)
 
 	if (fileinfo.isFile()) {
@@ -24,7 +43,7 @@ const rmdirSync = dir => {
 		for (let i = 0; i < files.length; i++)
 			rmdirSync(_path.default.join(dir, files[i]))
 
-		_fs.default.rmdirSync(dir)
+		dir === rootPath || _fs.default.rmdirSync(dir)
 	}
 }
 

@@ -10,12 +10,13 @@ var _utils = require('./utils')
 class CleanPlugin {
 	constructor(options) {
 		this.options = options
+		this.ignoreFiles = options.ignoreFiles || []
 	}
 
 	apply(compiler) {
 		compiler.hooks.emit.tap('Clean prev output files', compilation => {
 			const outputPath = compilation.outputOptions.path
-			;(0, _utils.rmdirSync)(outputPath)
+			;(0, _utils.rmdirSync)(outputPath, this.ignoreFiles)
 		})
 	}
 }
