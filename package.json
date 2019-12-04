@@ -2,7 +2,7 @@
 	"name": "clean-output-plugin",
 	"version": "0.2.0",
 	"description": "delete the previous files of webpack output in the compiler emit hook",
-	"main": "./dist/cleanPlugin.js",
+	"main": "./dist/index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "babel src -d dist -s true",
