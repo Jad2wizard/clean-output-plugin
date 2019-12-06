@@ -12,10 +12,22 @@ class CleanPlugin {
 		this.options = options
 		this.ignoreFiles = options.ignoreFiles || []
 		this.explicitlyDelFiles = options.explicitlyDelFiles || null
+		this.hook = this.initHookType(options.hook)
+	}
+
+	initHookType(hook) {
+		switch (hook) {
+			case 'done':
+				return hook
+
+			default:
+				return 'emit'
+		}
 	}
 
 	apply(compiler) {
-		compiler.hooks.emit.tap('Clean prev output files', compilation => {
+		compiler.hooks[this.hook].tap('Clean output files', param => {
+			const compilation = param.compilation || param
 			const outputPath = compilation.outputOptions.path
 			;(0, _utils.rmdirSync)(
 				outputPath,
