@@ -5,25 +5,20 @@ let rootPath = null
 let ignoreFiles = null
 let explicitlyDelFiles = null
 
-const isSameFile = target => f =>
-	f === target || `/${f}` === target || `/${f}` === `${target}/`
+const isSameFile = target => f => path.resolve(rootPath, f) === target
 
 const notNeedRemove = dir => {
-	if (!rootPath || !dir.startsWith(rootPath)) return true
+	if (!rootPath) return true
 
-	const relativePath = dir.replace(rootPath, '')
-
-	if (relativePath === '') return false
+	if (rootPath === dir) return false
 
 	if (!!explicitlyDelFiles) {
-		const inExplicitlyDelFiles = explicitlyDelFiles.some(
-			isSameFile(relativePath)
-		)
+		const inExplicitlyDelFiles = explicitlyDelFiles.some(isSameFile(dir))
 
 		return !inExplicitlyDelFiles
 	}
 
-	const inIgnoreFiles = ignoreFiles.some(isSameFile(relativePath))
+	const inIgnoreFiles = ignoreFiles.some(isSameFile(dir))
 
 	return inIgnoreFiles
 }
