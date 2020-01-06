@@ -6,6 +6,7 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "babel src -d dist -s true",
+		"buildTest": "webpack",
 		"eslint": "git diff --name-status --cached head > diff.log && node scripts/precommit.js"
 	},
 	"repository": {
@@ -31,7 +32,9 @@
 		"prettier": "^1.19.1",
 		"pretty-quick": "^2.0.1",
 		"shelljs": "^0.8.3",
-		"uglify-js": "^3.7.1"
+		"uglify-js": "^3.7.1",
+		"webpack": "^4.41.5",
+		"webpack-cli": "^3.3.10"
 	},
 	"husky": {
 		"hooks": {

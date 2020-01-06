@@ -27,18 +27,14 @@ const notNeedRemove = dir => {
 	return inIgnoreFiles
 }
 
-export const initModuleVars = (dir, _ignoreFiles, _explicitlyDelFiles) => {
+const initModuleVars = (dir, _ignoreFiles, _explicitlyDelFiles) => {
 	if (!rootPath) rootPath = dir
 	if (!ignoreFiles && _ignoreFiles) ignoreFiles = _ignoreFiles
 	if (!explicitlyDelFiles && _explicitlyDelFiles)
 		explicitlyDelFiles = _explicitlyDelFiles
 }
 
-export const rmdirSync = (dir, _ignoreFiles, _explicitlyDelFiles) => {
-	initModuleVars(dir, _ignoreFiles, _explicitlyDelFiles)
-
-	if (notNeedRemove(dir)) return
-
+const rmdirSync = dir => {
 	const fileinfo = fs.statSync(dir)
 	if (fileinfo.isFile()) {
 		fs.unlinkSync(dir)
@@ -46,7 +42,18 @@ export const rmdirSync = (dir, _ignoreFiles, _explicitlyDelFiles) => {
 		const files = fs.readdirSync(dir)
 		for (let i = 0; i < files.length; i++)
 			rmdirSync(path.join(dir, files[i]))
+	}
+}
 
-		dir === rootPath || fs.rmdirSync(dir)
+export const remove = (outputPath, _ignoreFiles, _explicitlyDelFiles) => {
+	initModuleVars(outputPath, _ignoreFiles, _explicitlyDelFiles)
+
+	if (fs.existsSync(outputPath)) {
+		for (let item of fs.readdirSync(outputPath)) {
+			const itemPath = path.resolve(outputPath, item)
+			if (!notNeedRemove(itemPath)) {
+				rmdirSync(itemPath)
+			}
+		}
 	}
 }

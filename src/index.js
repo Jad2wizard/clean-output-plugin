@@ -1,10 +1,10 @@
-import {rmdirSync} from './utils'
+import {remove} from './utils'
 
 class CleanPlugin {
 	constructor(options) {
 		this.options = options
 		this.ignoreFiles = options.ignoreFiles || []
-		this.explicitlyDelFiles = options.explicitlyDelFiles || null
+		this.explicitlyDelFiles = options.explicitlyDelFiles || []
 		this.hook = this.initHookType(options.hook)
 	}
 
@@ -21,7 +21,7 @@ class CleanPlugin {
 		compiler.hooks[this.hook].tap('Clean output files', param => {
 			const compilation = param.compilation || param
 			const outputPath = compilation.outputOptions.path
-			rmdirSync(outputPath, this.ignoreFiles, this.explicitlyDelFiles)
+			remove(outputPath, this.ignoreFiles, this.explicitlyDelFiles)
 		})
 	}
 }
