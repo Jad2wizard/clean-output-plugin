@@ -7,3 +7,6 @@ scripts/
 babel.config.js
 .prettierrc
 package-lock.json
+webpack.config.js
+test/*
+res/*
