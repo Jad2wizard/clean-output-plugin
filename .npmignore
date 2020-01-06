@@ -1,4 +1,5 @@
 .vscode/
+src/
 scripts/
 .eslint*
 .gitignore
